@@ -1,0 +1,42 @@
+// 웹캠 영상 불러와 출력하기.
+
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+
+#include <iostream>
+#include <stdio.h>
+
+using namespace cv;
+using namespace std;
+
+
+
+int main(int, char**)
+{
+
+	VideoCapture cap(0);                           //cap(변수)은 0(카메라번호)에 해당하는 카메라화면을 읽어옴.
+	if (!cap.isOpened())                           //카메라가 열려있는지 확인.
+	
+		printf("카메라를 열수 없습니다. \n");
+	}
+
+
+	Mat frame;                                     //frame(변수)이라는 행렬을 만듬.
+	namedWindow("camera1", 1);                     //'camera1'이라는 window를 생성.
+
+
+	while (1)
+	{
+
+		cap >> frame;                                //cap으로부터 받아온 정보를 frame으로 저장.
+
+		imshow("camera1", frame);                    //frame을 화면에 출력.
+
+		if (waitKey(27) >= 0) break;                 //esc누르면 종료.
+	}
+
+
+	return 0;
+}
+

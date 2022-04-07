@@ -1,6 +1,5 @@
 // 웹캠 영상 불러와 출력하기.
 
-#include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 

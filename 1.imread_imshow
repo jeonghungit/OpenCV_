@@ -1,0 +1,32 @@
+# jpg파일 각종 옵션으로 열기
+
+#include <opencv2/highgui.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**)
+{
+	namedWindow("dog", WINDOW_AUTOSIZE);
+	string path = "C:/Users/jeong/source/repos/Project1/dog.jpg";
+
+	// imread(filename, flag) : filename 이미지를 Mat형식의 flag에 할당한다.
+	Mat color_img = imread(path, IMREAD_COLOR);
+	Mat grayscale_img = imread(path, IMREAD_GRAYSCALE);
+	Mat unchanged_img = imread(path, IMREAD_UNCHANGED);
+	Mat reduced_img = imread(path, IMREAD_REDUCED_COLOR_2);
+	Mat reduced_grayclae_img = imread(path, IMREAD_REDUCED_GRAYSCALE_4);
+
+	// imshow(windowname, img) : 'windowname'의 윈도우에 img를 보여준다.
+	imshow("color_img", color_img);
+	imshow("grayscale_img", grayscale_img);
+	imshow("unchanged_img", unchanged_img);
+	imshow("reduced_img", reduced_img);
+	imshow("reduced_grayclae_img", reduced_grayclae_img);
+	
+	waitKey(0);
+
+	return 0;
+
+
+}

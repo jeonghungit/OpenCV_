@@ -1,0 +1,99 @@
+//grayscale & histogram equalization
+
+#include <opencv2/core.hpp>
+#include <opencv/cv.h>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+#include <stdio.h>
+
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**)
+{
+	
+
+	Mat img = imread("C:/Users/jeong/source/repos/Project1/man.png");
+	Mat grayscale_img;
+	//grayscaler
+	cvtColor(img, grayscale_img, COLOR_BGR2GRAY);
+	
+	//calcualte the histogram
+	Mat histogram;
+
+	
+	const int* channel_num = { 0 };																	//const : 재할당할 수 없고, 수정하지 못하는 상수.
+	float chennel_range[] = { 0.0, 255.0 };
+	const float* channel_ranges = chennel_range;
+	int num_bins = { 255 };
+
+	calcHist(&grayscale_img, 1, channel_num, Mat(), histogram, 1, &num_bins, &channel_ranges);		//calcHist(이미지, 이미지 갯수, 채널, 마스크, 계산된 histo Mat 담을 파일, 출력차원, 막대갯수(배열), 계산범위)
+
+	
+
+	//plot the histogram
+	int hist_w = grayscale_img.cols;
+	int hist_h = grayscale_img.rows;
+	int bin_w = cvRound((double)hist_w / num_bins);
+
+	Mat hist_img(hist_h, hist_w, CV_8UC1, Scalar::all(0));										    //CV_8UC1 : (8bit_Unsigned_Channel_1)Mat의 element가 타입을 저정.
+	normalize(histogram, histogram, 0, hist_img.rows, NORM_MINMAX, -1, Mat());						//normalize(src, dst, 최솟값, 최댓값, norm Type, 음수일경우:dst가 src와 같은 타입, 마스크영상)
+	
+
+	for (int i = 1; i < num_bins; i++)
+	{
+																									
+		line(hist_img, Point(bin_w * (i - 1), hist_h - cvRound(histogram.at<float>(i - 1))),		//line() : 직선을그린다. line(img, 시작점, 끝점, 선 색깔, 선 두께, 선 타입, 좌표 축소 비율)
+			Point(bin_w * (i), hist_h - cvRound(histogram.at<float>(i))),							//cvRound() : 반올림하여 실수를 정수로 표현.
+			Scalar(255, 0, 0), 1, 8, 0);															//at() : 각 원소로 접근하기 위해 사용.
+																									// 0에서 시작 - 1까지 직선 그리고, 1~2 직선 그리고 ... 254 ~ 255까지 반복
+	}
+
+
+	//histogram equalization
+
+	Mat equalized_hist_img;
+
+	equalizeHist(grayscale_img, equalized_hist_img);
+
+	//plot equalized_img's histogram
+	Mat equal_img_histogram;
+
+
+	calcHist(&equalized_hist_img, 1, channel_num, Mat(), equal_img_histogram, 1, &num_bins, &channel_ranges);
+
+
+	int equal_hist_w = equalized_hist_img.cols;
+	int equal_hist_h = equalized_hist_img.rows;
+	int equal_bin_w = cvRound((double)equal_hist_w / num_bins);
+
+	Mat equalized_img_histogram_img(hist_h, hist_w, CV_8UC1, Scalar::all(0));										   
+	normalize(equal_img_histogram, equal_img_histogram, 0, equalized_img_histogram_img.rows, NORM_MINMAX, -1, Mat());
+
+
+	for (int i = 1; i < num_bins; i++)
+	{
+
+		line(equalized_img_histogram_img, Point(equal_bin_w * (i - 1), equal_hist_h - cvRound(equal_img_histogram.at<float>(i - 1))),
+			Point(equal_bin_w * (i), equal_hist_h - cvRound(equal_img_histogram.at<float>(i))),
+			Scalar(255, 0, 0), 1, 8, 0);
+	}
+
+
+
+	namedWindow("grayscale", CV_WINDOW_AUTOSIZE);
+	namedWindow("histogram", CV_WINDOW_AUTOSIZE);
+	namedWindow("equalized_hist_img", CV_WINDOW_AUTOSIZE);
+
+	imshow("original", img);
+	imshow("grayscale", grayscale_img);
+	imshow("histogram", hist_img);
+	imshow("equalized_hist_img", equalized_hist_img);
+	imshow("equalized_img_histogram_img", equalized_img_histogram_img);
+	waitKey(0);
+
+
+	return 0;
+}

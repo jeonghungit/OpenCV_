@@ -1,0 +1,37 @@
+// 평균필터로 노이즈 제거
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	
+	Mat img = imread("dog.jpg", 0); //이미지를 grayscale로 불러옴
+	Mat img_average_constant;
+	Mat img_average_REPLICATE;
+	Mat img_average_REFLECT;
+	Mat img_average_REFLECT101;
+	Mat img_average_ISOLATED;
+
+	Mat avg_kernel = Mat::ones(5, 5, CV_32F) / 25; //mask가 (5,5)인 평균필터 커널
+
+	filter2D(img, img_average_constant, -1, avg_kernel, Point(-1, -1), (0, 0), 0);
+	filter2D(img, img_average_REPLICATE, -1, avg_kernel, Point(-1, -1), (0, 0), 1);
+	filter2D(img, img_average_REFLECT, -1, avg_kernel, Point(-1, -1), (0, 0), 2);
+	filter2D(img, img_average_REFLECT101, -1, avg_kernel, Point(-1, -1), (0, 0), 4);
+	filter2D(img, img_average_ISOLATED, -1, avg_kernel, Point(-1, -1), (0, 0), 16);
+
+	imshow("img_average_constant", img_average_constant);
+	imshow("img_average_REPLICATE", img_average_REPLICATE);
+	imshow("img_average_REFLECT", img_average_REFLECT);
+	imshow("img_average_REFLECT101", img_average_REFLECT101);
+	imshow("img_average_ISOLATED", img_average_ISOLATED);
+
+	waitKey(0);
+
+	return 0;
+
+}
+// 확인결과 constant 는 zero_padding이 적용되어 테두리가 까맣게 나온다.
+// REFLECT는 테두리가 까맣지 않고 자연스러운 사진이 나온다. mirror_padding 인 것 같다.

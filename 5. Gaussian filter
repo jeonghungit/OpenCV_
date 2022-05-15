@@ -1,0 +1,25 @@
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	Mat img = imread("dog.jpg", 0);
+
+	Mat img_blur;
+
+	GaussianBlur(img, img_blur, Size(7, 7), 0);
+
+	imshow("original", img);
+	imshow("img_blur", img_blur);
+	waitKey(0);
+
+	return 0;
+
+}
+
+// 사람이 느끼기에는 원본이 더 좋다고 느끼겠지만,
+// 컴퓨터가 이미지를 분석할 때에는 노이즈가 제거된 이미지가 더 좋다고 느낀다.
+// 그러므로 적절한 blur 방식을 사용하여 이미지를 컴퓨터가 처리하기 쉽게 해주는 작업은 매우 중요하다.
+// average filter는 비교적 윤곽선이 살아나면서 블러처리가 되고, Gaussian filter는 윤곽선도 흐려진다.
+// 동일한 마스크 크기로 처리했을 때, 어느 것이 처리속도가 빠를까?

@@ -1,0 +1,27 @@
+// grayscale은 0~255의 값을 저장하는 8bit 크기를 가지고 있는데
+// 여기서 더 속도를 빠르게 하기 위해서 2bit 크기를 다루도록
+// 이미지를 이진화한다.
+// 임계값(Threshold) 이상은 1, 이하는 0으로 처리함.
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int ac, char**) {
+	Mat img = imread("dog.jpg", 0);
+	Mat img_threshold;
+
+	// threshold(src, std, threshold_value, Max_value, threshold_type)
+	// threshold_value : 임계값
+	// Max_value : 임계값 이상의 픽셀들에 적용할 값
+	// threshold_type : binary화 하는 방법 ex)THRESHOLD_BINARY, THRESHOLD_OTSU 등등
+	threshold(img, img_threshold, 150, 255, THRESH_BINARY);
+	
+
+	imshow("original", img);
+	imshow("binary", img_threshold);
+	waitKey(0);
+
+	return 0;
+}

@@ -1,0 +1,34 @@
+// 이중 임계값 처리
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	Mat img = imread("dog.jpg", 0);
+
+	Mat img_threshold_180, img_threshold_130;
+	Mat img_inRange;
+
+	// inRange( src, lower_value, upper_value, dst )
+	// src 이미지에서 lower_value 와 upper_value 사이의 값들만 살려서 dst 이미지에 저장한다
+	// lower_value <= survive_value <= upper_value
+	inRange(img, Scalar::all(131), Scalar::all(180), img_inRange);
+	
+	threshold(img, img_threshold_180, 180, 255, THRESH_BINARY);
+	threshold(img, img_threshold_130, 130, 255, THRESH_BINARY);
+
+
+	imshow("original", img);
+	imshow("inRange", img_inRange);
+	imshow("threshold_180", img_threshold_180);
+	imshow("threshold_130", img_threshold_130);
+	imshow("making thrshold 130", img_inRange + img_threshold_180);
+	imshow("sub1", (img_inRange + img_threshold_180) - img_threshold_130);
+	imshow("sub2", img_threshold_130 - (img_inRange + img_threshold_180));
+
+	waitKey(0);
+
+	return 0;
+}

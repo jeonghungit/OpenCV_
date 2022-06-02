@@ -1,0 +1,29 @@
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	Mat img = imread("Lenna.png", 0);
+
+	Mat img_dilate;
+	Mat img_erode;
+
+	Mat img_threshold;
+
+	threshold(img, img_threshold, 150, 255, THRESH_BINARY);
+
+	// dilate 3x3 필터를 적용시켜 그 중 최댓값을 중심 픽셀 값에 적용시켜 img속 object를 뚜렷하게 함.
+	dilate(img_threshold, img_dilate, Mat::ones(Size(3, 3), CV_8UC1), Point(-1, -1));
+	// erode는 dilate와 반대로 최솟값을 중심 픽셀 값에 적용시켜 img 속 object를 흐리게 함.
+	erode(img_threshold, img_erode, Mat::ones(Size(3, 3), CV_8UC1), Point(-1, -1));
+
+	imshow("original", img_threshold);
+
+	imshow("img_dilate", img_dilate);
+	imshow("img_erode", img_erode);
+
+	waitKey(0);
+	return 0;
+
+}

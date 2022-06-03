@@ -14,7 +14,8 @@
 ![8  dilate_erode](https://user-images.githubusercontent.com/98944692/171641813-6909ab48-b9cc-4781-89fd-b65f6354f4a2.png)
 
  9. Opening
-![image](https://user-images.githubusercontent.com/98944692/171813370-0e97b7ec-4675-46ff-8280-34ba27f9a5dc.png)
+![2](https://user-images.githubusercontent.com/98944692/171819143-d79b5233-de93-49b7-b380-1080298680fa.png)
+
 
 10.closing
 ![image](https://user-images.githubusercontent.com/98944692/171817734-dca34ac5-8eb6-4075-9927-6f143afc5f21.png)

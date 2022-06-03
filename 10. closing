@@ -1,0 +1,31 @@
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	Mat img = imread("pill.png", 0);
+
+	Mat img_erode;
+	Mat img_dilate;
+
+	Mat img_threshold;
+
+	threshold(img, img_threshold, 240, 255, THRESH_BINARY);
+
+	// closing : dilate 연산 후 erode / 분리되어 있는 물체를 하나로 합치게 해준다.
+	dilate(img_threshold, img_dilate, Mat::ones(Size(3, 3), CV_8UC1), Point(-1, -1));
+	erode(img_dilate, img_erode, Mat::ones(Size(3, 3), CV_8UC1), Point(-1, -1));
+
+	imshow("original", img);
+	imshow("img_threshold", img_threshold);
+	imshow("img_dilate", img_dilate);
+	imshow("img_erode", img_erode);
+	
+
+	waitKey(0);
+	return 0;
+
+
+
+}

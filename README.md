@@ -15,3 +15,6 @@
 
  9. Opening
 ![image](https://user-images.githubusercontent.com/98944692/171813370-0e97b7ec-4675-46ff-8280-34ba27f9a5dc.png)
+
+10.closing
+![image](https://user-images.githubusercontent.com/98944692/171817734-dca34ac5-8eb6-4075-9927-6f143afc5f21.png)

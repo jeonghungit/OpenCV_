@@ -1,0 +1,32 @@
+// Canny Edge Detection
+
+// 미분하여 기울기가 증가하면 양수(+), 감소하면 음수(-)인 것을 이용하여
+// 기울기의 부호가 바뀌는 지점을 경계로 인식.
+// x축과 y축 두 방향 각각 조사.
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char**) {
+	Mat img = imread("dog.jpg", 0);
+
+	Mat img_edge;
+	Mat img_erode;
+
+	// Canny(src, dst, threshold1, threshold2)
+	// 1. 가우시안 필터로 이미지를 부드럽게 해준다.
+	// 2. sobel 커널을 이용하여, x축과 y축에 대한 편미분 벡터를 구한다.
+	// 3. 이웃 픽셀들과 비교를 통해 변화량이 큰지 작은지 판별하여 값이 큰 픽셀만 추출한다. 그리고 경계의 방향을 구한다.
+	// 4. 그 중 threshold1과 threshold2 값을 이용하여 진짜 경계만 구별한다. 
+	// (threshold1 보다 작으면 경계X, threshold2 보다 크면 강한 엣지, 두 값 사이에 있으면서 강한 엣지에 연결되어 있으면 엣지O 아니면 엣지X)
+	Canny(img, img_edge, 100, 150);
+
+	imshow("original", img);
+	imshow("img_edge", img_edge);
+
+	waitKey(0);
+	return 0;
+
+}

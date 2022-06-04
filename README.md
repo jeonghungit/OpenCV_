@@ -20,3 +20,7 @@
 
 10.closing
 ![image](https://user-images.githubusercontent.com/98944692/171817734-dca34ac5-8eb6-4075-9927-6f143afc5f21.png)
+
+
+11. Edge_Detection
+![image](https://user-images.githubusercontent.com/98944692/171992929-942f0a9c-7cbf-4950-a5b0-acbc283ac261.png)

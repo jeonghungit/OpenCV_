@@ -24,3 +24,7 @@
 
 11. Edge_Detection
 ![image](https://user-images.githubusercontent.com/98944692/171992929-942f0a9c-7cbf-4950-a5b0-acbc283ac261.png)
+
+12. Resize
+![resize](https://user-images.githubusercontent.com/98944692/172305383-3269b1f0-725d-48b8-8a00-9d5ca064694d.png)
+

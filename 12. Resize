@@ -1,0 +1,25 @@
+// 연산속도를 위해 RGB	보다는 grayscale을 사용하지만
+// 더 빠르게 하기 위해서 이미지 크기를 줄인다.
+// 또한, 확대할 때는 default로 선형보간법을 사용한다.
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int ac, char** av) {
+
+	Mat img = imread("dog.jpg");
+	Mat img_big, img_small;
+
+	resize(img, img_big, Size(600, 600));
+	resize(img, img_small, Size(200, 200));
+
+	imshow("original", img);
+	imshow("img_big", img_big);
+	imshow("img_small", img_small);
+
+	waitKey(0);
+
+	return 0;
+}
